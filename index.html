@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src=
+    "https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.5/dist/html2canvas.min.js">
+        </script>
+    <title>Color Generator</title>
+</head>
+<body id="body">
+    <div id="container">
+        <h1>Color Generator</h1>
+        <label for="numBox">Amount of Boxes (max: 300)</label>
+        <input type="text" id="numBox" name="numBox" value="4"><br>
+        <a href="javascript:generateColorBoxes()">
+            <div class="padding">
+                <div class="button">
+                    Choose New Colors
+               </div>
+            </div>
+                
+           
+        </a>
+        <div id="boxesRow">
+        </div>
+    </div>
+</body>
+<script>
+    window.onload = generateColorBoxes();
+
+    
+    function generateColorBoxes(){
+        
+        const row = document.getElementById("boxesRow")
+        
+        
+        document.getElementById("boxesRow").innerHTML = '';
+        
+        
+        var numBox;
+         parseInt(document.getElementById('numBox').value) > 300 || parseInt(document.getElementById('numBox').value) == NaN ? numBox = 4 : numBox = parseInt(document.getElementById('numBox').value);
+
+        for(numBox; numBox > 0; numBox--){
+
+            
+            
+            var red = Math.floor(Math.random() * 255);
+            var green = Math.floor(Math.random() * 255);
+            var blue = Math.floor(Math.random() * 255);
+           
+            var box = document.createElement("div");
+            box.style.backgroundColor = `rgb(${red}, ${green}, ${blue} )`;
+            box.setAttribute('id', 'colorBox')
+
+            var val = document.createElement("rgbval");
+            val.setAttribute('id', 'rgbval')
+            val.textContent = `RGB(${red}, ${green}, ${blue} )`
+            var anchor = document.createElement("a");
+            anchor.href = `javascript:setBackground('rgb(${red}, ${green}, ${blue} )')`
+            
+            
+            box.append(val);
+            anchor.append(box)
+            row.append(anchor);
+          
+        }
+    }
+
+
+    function setBackground(color){
+
+      var bg = document.getElementById("body");
+       bg.style.backgroundColor = color;
+    }
+    
+</script>
+</html>
